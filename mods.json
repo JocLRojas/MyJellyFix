@@ -1,0 +1,51 @@
+[
+  {
+    "id": "myjellyfix-netflix",
+    "name": "MyJellyFix — Netflix Skin",
+    "author": "JocLRojas",
+    "description": "Reskins the Jellyfin web UI to look like Netflix: dark background, red accent, custom font, card hover zoom. Client-only mod, no server changes.",
+    "version": "0.1.0",
+    "jellyfin": "10.10+",
+    "tags": ["netflix", "dark", "redesign", "client"],
+    "previewUrl": "",
+    "sourceUrl": "https://github.com/JocLRojas/MyJellyFix",
+    "cssUrl": "TODO_HOSTED_URL/netflix.css",
+    "jsUrl": "TODO_HOSTED_URL/netflix.js",
+    "serverJs": "",
+    "permissions": [],
+    "requires": [],
+    "preconnect": ["https://cdn.jsdelivr.net"],
+    "vars": [
+      {
+        "key": "NF_ACCENT",
+        "name": "Accent Color",
+        "description": "Primary highlight color (buttons, links, selected tabs). Default is Netflix red.",
+        "type": "color",
+        "default": "#E50914"
+      },
+      {
+        "key": "NF_BG",
+        "name": "Background Color",
+        "description": "Main page background. Default is Netflix near-black.",
+        "type": "color",
+        "default": "#141414"
+      },
+      {
+        "key": "NF_CARD_RADIUS",
+        "name": "Card Radius (px)",
+        "description": "Border radius on media cards. Default 4px.",
+        "type": "number",
+        "default": "4"
+      },
+      {
+        "key": "NF_HERO",
+        "name": "Enable Hero Banner",
+        "description": "Use the first item's backdrop as a full-width hero at the top of the home page. Default off.",
+        "type": "boolean",
+        "default": "false",
+        "trueValue": "1",
+        "falseValue": "0"
+      }
+    ]
+  }
+]

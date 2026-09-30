@@ -1,0 +1,287 @@
+/* MyJellyFix — Netflix Skin
+   JellyFrame client mod (CSS layer).
+   Variables injected server-side by JellyFrame from mods.json `vars`.
+   Selector policy: only safe, stable classes listed in the JellyFrame
+   Theme CSS Guide. No blanket resets. No fragile #ids.
+*/
+
+:root {
+  --nf-accent: {{NF_ACCENT}};
+  --nf-bg: {{NF_BG}};
+  --nf-radius: {{NF_CARD_RADIUS}}px;
+
+  /* Derived values — chain from the roots above. */
+  --nf-surface: color-mix(in srgb, var(--nf-bg) 88%, white 12%);
+  --nf-surface-2: color-mix(in srgb, var(--nf-bg) 78%, white 22%);
+  --nf-text: #f5f5f5;
+  --nf-text-muted: rgba(245, 245, 245, 0.55);
+  --nf-border: rgba(255, 255, 255, 0.08);
+  --nf-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+
+  /* Font: prefer system "Netflix Sans"-style stack, fall back to
+     Roboto. If a webfont is later added it goes in a separate @font-face. */
+  --nf-font: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, Roboto, sans-serif;
+}
+
+/* ---- Page shell ---- */
+
+html,
+body {
+  font-family: var(--nf-font) !important;
+  background: var(--nf-bg) !important;
+  color: var(--nf-text);
+}
+
+/* Main background container — the biggest visible surface. */
+.backgroundContainer {
+  background-color: var(--nf-bg) !important;
+}
+
+/* Slight dim on the backdrops behind content so cards pop. */
+.backdropContainer {
+  background-color: var(--nf-bg) !important;
+}
+
+/* ---- Navigation (left drawer + top header) ---- */
+
+.mainDrawer,
+.navDrawer {
+  background-color: color-mix(in srgb, var(--nf-bg) 70%, black 30%) !important;
+  border-right: 1px solid var(--nf-border);
+}
+
+.mainDrawer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 60%);
+  pointer-events: none;
+}
+
+.mainHeader {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%) !important;
+}
+
+/* Header right — keep subtle so it doesn't fight the hero. */
+.headerRight .emby-button {
+  color: var(--nf-text) !important;
+  opacity: 0.85;
+}
+.headerRight .emby-button:hover {
+  opacity: 1;
+}
+
+/* Nav items */
+.navItem {
+  color: var(--nf-text) !important;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+.navItem:hover,
+.navItem:focus {
+  opacity: 1;
+}
+.navItem.is-active,
+.navItem.is-selected {
+  opacity: 1;
+  color: var(--nf-accent) !important;
+}
+
+/* ---- Titles & text ---- */
+
+.pageTitle,
+.headerTitle {
+  color: var(--nf-text) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.cardText {
+  color: var(--nf-text) !important;
+}
+.cardText-secondary {
+  color: var(--nf-text-muted) !important;
+  font-size: 0.82em;
+}
+
+.secondary,
+.secondaryText {
+  color: var(--nf-text-muted) !important;
+}
+
+a {
+  color: var(--nf-text) !important;
+}
+a:hover {
+  color: var(--nf-accent) !important;
+}
+
+/* ---- Cards (the core of the Netflix feel) ---- */
+
+.card .cardBox {
+  border-radius: var(--nf-radius) !important;
+  overflow: hidden;
+  background: var(--nf-surface);
+  transition:
+    transform 0.18s ease-out,
+    box-shadow 0.18s ease-out;
+}
+
+.card:hover .cardBox,
+.card:focus .cardBox {
+  transform: scale(1.04);
+  box-shadow: var(--nf-shadow);
+  z-index: 10;
+}
+
+/* Card images: remove default padding so they fill the box like Netflix. */
+.cardImageContainer {
+  border-radius: var(--nf-radius) !important;
+  overflow: hidden;
+}
+.cardImageContainer img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Card footer: a subtle gradient so the title stays readable on busy art. */
+.card .cardFooter {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+  padding-top: 0.35em;
+}
+
+/* ---- Buttons & inputs ---- */
+
+.raised,
+.button-submit {
+  background: var(--nf-accent) !important;
+  color: #fff !important;
+  border-radius: var(--nf-radius);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+.raised:hover,
+.button-submit:hover {
+  background: color-mix(in srgb, var(--nf-accent) 85%, white 15%) !important;
+}
+.raised:active,
+.button-submit:active {
+  transform: scale(0.98);
+}
+
+/* Flat buttons — inherit accent on hover, stay transparent by default. */
+.button-flat {
+  color: var(--nf-text) !important;
+  border-radius: var(--nf-radius);
+}
+.button-flat:hover,
+.button-flat:focus {
+  color: var(--nf-accent) !important;
+}
+
+.emby-button.emby-button-focus {
+  outline: 2px solid var(--nf-accent);
+  outline-offset: 2px;
+}
+
+.emby-input,
+.emby-select {
+  background: var(--nf-surface) !important;
+  border: 1px solid var(--nf-border) !important;
+  border-radius: var(--nf-radius) !important;
+  color: var(--nf-text) !important;
+}
+.emby-input:focus,
+.emby-select:focus {
+  border-color: var(--nf-accent) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--nf-accent) 35%, transparent);
+}
+
+.emby-checkbox {
+  accent-color: var(--nf-accent) !important;
+}
+
+/* ---- Tabs ---- */
+
+.itemTabBar,
+.headerTabs {
+  border-bottom: 1px solid var(--nf-border);
+}
+.emby-tab-button {
+  color: var(--nf-text-muted) !important;
+  border-radius: var(--nf-radius) var(--nf-radius) 0 0;
+}
+.emby-tab-button:hover {
+  color: var(--nf-text) !important;
+}
+.emby-tab-button.is-selected {
+  color: var(--nf-accent) !important;
+  border-bottom: 2px solid var(--nf-accent) !important;
+}
+
+/* ---- Dialogs & popups ---- */
+
+.dialogContainer .dialog {
+  background: var(--nf-surface) !important;
+  border: 1px solid var(--nf-border);
+  border-radius: calc(var(--nf-radius) * 2);
+  color: var(--nf-text);
+}
+.popupContainer {
+  background: var(--nf-surface-2) !important;
+  border: 1px solid var(--nf-border);
+  border-radius: var(--nf-radius);
+  box-shadow: var(--nf-shadow);
+}
+.actionSheet {
+  background: var(--nf-surface) !important;
+  color: var(--nf-text);
+}
+
+/* ---- Lists (rows) ---- */
+
+.listItem {
+  border-radius: var(--nf-radius);
+  color: var(--nf-text);
+}
+.listItem:hover {
+  background: var(--nf-surface) !important;
+}
+
+/* ---- Hero (opt-in via {{NF_HERO}}; JS adds .nf-hero to a chosen card) ---- */
+
+/* The JS adds class `nf-hero` to the first card container on the home page
+   when the variable is on. CSS just styles it. */
+.nf-hero {
+  position: relative;
+  z-index: 1;
+}
+.nf-hero .cardBox {
+  border-radius: var(--nf-radius) !important;
+  overflow: hidden;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.nf-hero .cardImageContainer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 20, 20, 0.85) 0%, rgba(20, 20, 20, 0) 70%);
+  pointer-events: none;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .card .cardBox {
+    min-width: 130px;
+  }
+}
+@media (min-width: 1600px) {
+  .mainContentWrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}

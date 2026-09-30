@@ -6,9 +6,16 @@ zoom, and an opt-in hero banner on the home page.
 
 - **Client-only** — no `serverJs`, no `.NET` plugin, no changes to your
   Jellyfin data or auth.
+- **Real Netflix look** — authentic **Netflix Sans** font (served from
+  `assets.nflxext.com`, same source Netflix itself uses) and a palette
+  captured from the JellyFlix skin: `#e50914` red, `#101010` page,
+  `#141414` surface, 3px card rounding, shadow-free cards, diagonal
+  corner indicators, red text selection.
 - **Version-resilient** — uses the safe, stable class selectors documented
   in the JellyFrame CSS guide and a `MutationObserver` so it works across
-  Jellyfin 10.10+ (including 12.x).
+  Jellyfin 10.10+ (including 12.x). It deliberately avoids the structural
+  `display` overrides that break the JellyFlix Logo addon on newer
+  versions.
 - **Distributed** via any public HTTPS host with CORS `*` (jsDelivr,
   Cloudflare Pages, Netlify, or a self-hosted Caddy/Nginx block).
 
@@ -25,8 +32,8 @@ zoom, and an opt-in hero banner on the home page.
 | Key | Type | Default | What it does |
 | --- | --- | --- | --- |
 | `NF_ACCENT` | color | `#E50914` | Buttons, links, selected nav. Netflix red by default. |
-| `NF_BG` | color | `#141414` | Main background. Netflix near-black by default. |
-| `NF_CARD_RADIUS` | number | `4` | Card corner radius in px. |
+| `NF_BG` | color | `#101010` | Main background. JellyFlix-captured near-black. |
+| `NF_CARD_RADIUS` | number | `3` | Card corner radius in px (JellyFlix uses 3). |
 | `NF_HERO` | boolean | `0` | Turn on a full-width hero banner on the home page. |
 
 ## Install
@@ -36,8 +43,8 @@ zoom, and an opt-in hero banner on the home page.
 Any public HTTPS location works. The easiest paths:
 
 - **jsDelivr** (recommended): put this repo on a **public** GitHub (or use
-  a separate public mirror), tag a release `v0.1.0`, and use:
-  `https://cdn.jsdelivr.net/gh/<user>/<repo>@v0.1.0/assets/netflix.css`
+  a separate public mirror), tag a release `v0.2.0`, and use:
+  `https://cdn.jsdelivr.net/gh/<user>/<repo>@v0.2.0/assets/netflix.css`
 - **Cloudflare Pages / Netlify**: deploy the `assets/` folder, add a
   `_headers` file with `Access-Control-Allow-Origin: *`.
 - **Self-host via Caddy/Nginx**: serve the `assets/` directory with the

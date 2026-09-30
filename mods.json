@@ -4,17 +4,17 @@
     "name": "MyJellyFix — Netflix Skin",
     "author": "JocLRojas",
     "description": "Reskins the Jellyfin web UI to look like Netflix: dark background, red accent, custom font, card hover zoom. Client-only mod, no server changes.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "jellyfin": "10.10+",
     "tags": ["netflix", "dark", "redesign", "client"],
     "previewUrl": "",
     "sourceUrl": "https://github.com/JocLRojas/MyJellyFix",
-    "cssUrl": "https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.1.0/assets/netflix.css",
-    "jsUrl": "https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.1.0/assets/netflix.js",
+    "cssUrl": "https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.2.0/assets/netflix.css",
+    "jsUrl": "https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.2.0/assets/netflix.js",
     "serverJs": "",
     "permissions": [],
     "requires": [],
-    "preconnect": ["https://cdn.jsdelivr.net"],
+    "preconnect": ["https://cdn.jsdelivr.net", "https://assets.nflxext.com"],
     "vars": [
       {
         "key": "NF_ACCENT",
@@ -28,14 +28,14 @@
         "name": "Background Color",
         "description": "Main page background. Default is Netflix near-black.",
         "type": "color",
-        "default": "#141414"
+        "default": "#101010"
       },
       {
         "key": "NF_CARD_RADIUS",
         "name": "Card Radius (px)",
         "description": "Border radius on media cards. Default 4px.",
         "type": "number",
-        "default": "4"
+        "default": "3"
       },
       {
         "key": "NF_HERO",

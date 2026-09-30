@@ -1,45 +1,101 @@
 /* MyJellyFix — Netflix Skin
-   JellyFrame client mod (CSS layer).
-   Variables injected server-side by JellyFrame from mods.json `vars`.
-   Selector policy: only safe, stable classes listed in the JellyFrame
-   Theme CSS Guide. No blanket resets. No fragile #ids.
+   JellyFrame client mod (CSS layer). v0.2.0
+   Values captured from JellyFlix (prayag17) real palette + Netflix Sans
+   webfont from assets.nflxext.com.
+   Selector policy: safe, stable classes per JellyFrame Theme CSS Guide.
+   No blanket resets, no structural display overrides.
 */
+
+/* ---- Netflix Sans (same CDN JellyFlix uses) ----
+   @font-face before any rule is valid CSS and works in injected styles. */
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Th.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Th.woff) format("woff");
+}
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Lt.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Lt.woff) format("woff");
+}
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Rg.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Rg.woff) format("woff");
+}
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Md.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Md.woff) format("woff");
+}
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Bd.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Bd.woff) format("woff");
+}
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Blk.woff2) format("woff2"),
+       url(https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Blk.woff) format("woff");
+}
 
 :root {
   --nf-accent: {{NF_ACCENT}};
   --nf-bg: {{NF_BG}};
   --nf-radius: {{NF_CARD_RADIUS}}px;
 
-  /* Derived values — chain from the roots above. */
-  --nf-surface: color-mix(in srgb, var(--nf-bg) 88%, white 12%);
-  --nf-surface-2: color-mix(in srgb, var(--nf-bg) 78%, white 22%);
-  --nf-text: #f5f5f5;
-  --nf-text-muted: rgba(245, 245, 245, 0.55);
-  --nf-border: rgba(255, 255, 255, 0.08);
-  --nf-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+  /* Derived — JellyFlix-captured values. */
+  --nf-surface: rgb(20, 20, 20);
+  --nf-surface-2: #1f1f1f;
+  --nf-focus-tint: color-mix(in srgb, var(--nf-accent) 20%, transparent);
+  --nf-text: #fff;
+  --nf-text-soft: #cdcdcd;
+  --nf-text-muted: #a3a3a3;
+  --nf-border: #4d4d4d;
+  --nf-shadow: none;
 
-  /* Font: prefer system "Netflix Sans"-style stack, fall back to
-     Roboto. If a webfont is later added it goes in a separate @font-face. */
-  --nf-font: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, Roboto, sans-serif;
+  --nf-font: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* ---- Page shell ---- */
 
 html,
-body {
+body,
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--nf-font) !important;
+}
+
+body {
   background: var(--nf-bg) !important;
   color: var(--nf-text);
 }
 
-/* Main background container — the biggest visible surface. */
 .backgroundContainer {
   background-color: var(--nf-bg) !important;
 }
-
-/* Slight dim on the backdrops behind content so cards pop. */
 .backdropContainer {
   background-color: var(--nf-bg) !important;
+}
+
+/* Text selection in accent red (JellyFlix behavior). */
+::selection {
+  background: var(--nf-accent);
+  color: #fff;
 }
 
 /* ---- Navigation (left drawer + top header) ---- */
@@ -47,22 +103,13 @@ body {
 .mainDrawer,
 .navDrawer {
   background-color: color-mix(in srgb, var(--nf-bg) 70%, black 30%) !important;
-  border-right: 1px solid var(--nf-border);
-}
-
-.mainDrawer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 60%);
-  pointer-events: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .mainHeader {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
-/* Header right — keep subtle so it doesn't fight the hero. */
 .headerRight .emby-button {
   color: var(--nf-text) !important;
   opacity: 0.85;
@@ -71,7 +118,6 @@ body {
   opacity: 1;
 }
 
-/* Nav items */
 .navItem {
   color: var(--nf-text) !important;
   opacity: 0.7;
@@ -85,6 +131,14 @@ body {
 .navItem.is-selected {
   opacity: 1;
   color: var(--nf-accent) !important;
+}
+
+/* TV focus color (JellyFlix: accent on focus). */
+.layout-tv .paper-icon-button-light.show-focus:focus {
+  color: var(--nf-accent) !important;
+}
+.emby-button.show-focus:focus {
+  background: var(--nf-focus-tint) !important;
 }
 
 /* ---- Titles & text ---- */
@@ -127,16 +181,21 @@ a:hover {
     box-shadow 0.18s ease-out;
 }
 
+/* Kill the default card shadow (JellyFlix does the same). */
+.cardContent-shadow,
+.cardBox:not(.visualCardBox) .cardPadder {
+  box-shadow: none !important;
+}
+
 .card:hover .cardBox,
 .card:focus .cardBox {
   transform: scale(1.04);
-  box-shadow: var(--nf-shadow);
   z-index: 10;
 }
 
-/* Card images: remove default padding so they fill the box like Netflix. */
+/* Home/landing cards: rounded top only (JellyFlix pattern). */
 .cardImageContainer {
-  border-radius: var(--nf-radius) !important;
+  border-radius: var(--nf-radius) var(--nf-radius) 0 0 !important;
   overflow: hidden;
 }
 .cardImageContainer img {
@@ -145,10 +204,62 @@ a:hover {
   height: 100%;
 }
 
-/* Card footer: a subtle gradient so the title stays readable on busy art. */
 .card .cardFooter {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
   padding-top: 0.35em;
+}
+
+/* Watched / count indicators: diagonal corner gradient (JellyFlix). */
+.playedIndicator,
+.countIndicator {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.cardIndicators {
+  right: 0;
+  top: 0;
+}
+.countIndicator,
+.fullSyncIndicator,
+.playedIndicator {
+  background: linear-gradient(-135deg, rgba(40, 40, 40) 50%, transparent 50%) !important;
+}
+
+/* ---- Detail page (movie/TV title screen) ----
+   Safe reskin only — no display/structure overrides (unlike JellyFlix's
+   Logo.css, which is exactly what breaks on newer Jellyfin). */
+
+.itemDetailPage {
+  background: transparent !important;
+}
+.itemDetailPage .cardFooter,
+.itemDetailPage .detailButtons {
+  text-shadow: 1px 1px 5px rgb(20, 20, 20);
+}
+.itemName {
+  color: var(--nf-text) !important;
+  font-weight: 700;
+}
+.parentName,
+.infoWrapper.infoText {
+  color: var(--nf-text-soft) !important;
+}
+
+/* ---- Video OSD (OS Video player) ---- */
+
+.videoOsdBottom {
+  font-size: 110%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+.skinHeader-withBackground.osdHeader {
+  transition: opacity 0.3s ease-out;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent) !important;
+  color: #eee;
+}
+
+/* Progress slider in accent red. */
+.mdl-slider::-webkit-slider-thumb {
+  background: var(--nf-accent) !important;
 }
 
 /* ---- Buttons & inputs ---- */
@@ -171,13 +282,14 @@ a:hover {
   transform: scale(0.98);
 }
 
-/* Flat buttons — inherit accent on hover, stay transparent by default. */
-.button-flat {
-  color: var(--nf-text) !important;
+.button-flat,
+.button-link {
+  color: var(--nf-text-soft) !important;
   border-radius: var(--nf-radius);
 }
 .button-flat:hover,
-.button-flat:focus {
+.button-flat:focus,
+.button-link:hover {
   color: var(--nf-accent) !important;
 }
 
@@ -187,20 +299,41 @@ a:hover {
 }
 
 .emby-input,
-.emby-select {
+.emby-select,
+.emby-textarea {
   background: var(--nf-surface) !important;
   border: 1px solid var(--nf-border) !important;
   border-radius: var(--nf-radius) !important;
   color: var(--nf-text) !important;
 }
 .emby-input:focus,
-.emby-select:focus {
+.emby-select:focus,
+.emby-textarea:focus {
   border-color: var(--nf-accent) !important;
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--nf-accent) 35%, transparent);
+  box-shadow: 0 0 0 2px var(--nf-focus-tint);
 }
 
+/* Checkbox styled like JellyFlix: grey box, white check. */
+.checkboxOutline {
+  background: #737373 !important;
+  border: none !important;
+}
+span.material-icons.checkboxIcon.checkboxIcon-checked.check {
+  background: #eee;
+  color: black;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
 .emby-checkbox {
   accent-color: var(--nf-accent) !important;
+}
+
+fieldset.verticalSection {
+  border-radius: var(--nf-radius);
+  border-color: var(--nf-border);
 }
 
 /* ---- Tabs ---- */
@@ -214,17 +347,36 @@ a:hover {
   border-radius: var(--nf-radius) var(--nf-radius) 0 0;
 }
 .emby-tab-button:hover {
-  color: var(--nf-text) !important;
+  color: var(--nf-accent) !important;
 }
-.emby-tab-button.is-selected {
+.emby-tab-button.is-selected,
+.emby-tab-button.emby-tab-button-active {
   color: var(--nf-accent) !important;
   border-bottom: 2px solid var(--nf-accent) !important;
+}
+
+/* ---- Login page ---- */
+
+#loginPage {
+  background: var(--nf-bg) !important;
+}
+#loginPage .squareCard {
+  width: 50% !important;
+  background: var(--nf-surface) !important;
+  transform: none !important;
+  border-radius: var(--nf-radius);
+}
+#loginPage .cardText {
+  opacity: 1;
+}
+#loginPage .emby-button {
+  color: var(--nf-text) !important;
 }
 
 /* ---- Dialogs & popups ---- */
 
 .dialogContainer .dialog {
-  background: var(--nf-surface) !important;
+  background: var(--nf-surface-2) !important;
   border: 1px solid var(--nf-border);
   border-radius: calc(var(--nf-radius) * 2);
   color: var(--nf-text);
@@ -233,10 +385,10 @@ a:hover {
   background: var(--nf-surface-2) !important;
   border: 1px solid var(--nf-border);
   border-radius: var(--nf-radius);
-  box-shadow: var(--nf-shadow);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
 }
 .actionSheet {
-  background: var(--nf-surface) !important;
+  background: var(--nf-surface-2) !important;
   color: var(--nf-text);
 }
 
@@ -250,10 +402,8 @@ a:hover {
   background: var(--nf-surface) !important;
 }
 
-/* ---- Hero (opt-in via {{NF_HERO}}; JS adds .nf-hero to a chosen card) ---- */
+/* ---- Hero (opt-in via {{NF_HERO}}; JS adds .nf-hero) ---- */
 
-/* The JS adds class `nf-hero` to the first card container on the home page
-   when the variable is on. CSS just styles it. */
 .nf-hero {
   position: relative;
   z-index: 1;
@@ -268,11 +418,11 @@ a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(20, 20, 20, 0.85) 0%, rgba(20, 20, 20, 0) 70%);
+  background: linear-gradient(90deg, rgba(16, 16, 16, 0.85) 0%, rgba(16, 16, 16, 0) 70%);
   pointer-events: none;
 }
 
-/* ---- Responsive ---- */
+/* ---- Responsive (JellyFlix's own hint: use ~67% zoom on PC) ---- */
 
 @media (max-width: 600px) {
   .card .cardBox {

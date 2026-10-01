@@ -44,7 +44,7 @@ Any public HTTPS location works. The easiest paths:
 
 - **jsDelivr** (recommended): put this repo on a **public** GitHub (or use
   a separate public mirror), tag a release `v0.2.0`, and use:
-  `https://cdn.jsdelivr.net/gh/<user>/<repo>@v0.3.0/assets/netflix.css`
+  `https://cdn.jsdelivr.net/gh/<user>/<repo>@v0.4.0/assets/netflix.css`
 - **Cloudflare Pages / Netlify**: deploy the `assets/` folder, add a
   `_headers` file with `Access-Control-Allow-Origin: *`.
 - **Self-host via Caddy/Nginx**: serve the `assets/` directory with the

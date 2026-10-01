@@ -357,25 +357,49 @@ fieldset.verticalSection {
 
 /* ---- Login page ---- */
 
+/* Jellyfin injects a .backdropImage div with an inline background-image
+   (a random item from the library, or the server splash screen) that would
+   cover our CSS background. Hide it on the login page only. */
+#loginPage .backdropImage,
+#loginPage .backdropContainer {
+  display: none !important;
+}
+
 #loginPage {
   background:
-    linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 20%),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 20%),
-    linear-gradient(to left, rgba(0, 0, 0, 0.75), transparent 20%),
-    linear-gradient(to right, rgba(0, 0, 0, 0.75), transparent 20%),
-    url("https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.3.0/assets/login-bg.jpg") center / cover no-repeat !important;
+    linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 20%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent 20%),
+    linear-gradient(to left, rgba(0, 0, 0, 0.6), transparent 20%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent 20%),
+    url("https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.4.0/assets/login-bg.jpg") center / cover no-repeat !important;
+  background-color: #000 !important;
 }
-#loginPage .squareCard {
-  width: 50% !important;
+
+/* Constrain the manual form to a centered, semi-transparent panel. */
+#loginPage .manualLoginForm {
+  width: 440px !important;
+  max-width: 92vw;
+  margin: 0 auto;
+  padding: 32px 28px !important;
+  background: rgba(16, 16, 16, 0.75) !important;
+  backdrop-filter: blur(4px);
+  border-radius: calc(var(--nf-radius) * 2);
+}
+
+#loginPage .visualLoginForm {
+  width: 100%;
+}
+
+/* Login page button: keep the default raised style but add a subtle red
+   ring on hover, matching JellyFlix's accent-on-hover pattern. */
+#loginPage .raised {
   background: var(--nf-surface) !important;
-  transform: none !important;
-  border-radius: var(--nf-radius);
-}
-#loginPage .cardText {
-  opacity: 1;
-}
-#loginPage .emby-button {
   color: var(--nf-text) !important;
+  border: 1px solid var(--nf-border);
+}
+#loginPage .raised:hover {
+  color: var(--nf-accent) !important;
+  border-color: var(--nf-accent);
 }
 
 /* ---- Dialogs & popups ---- */

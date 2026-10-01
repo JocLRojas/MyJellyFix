@@ -1,2 +1,5 @@
 # Local Pi runtime state
 .atl/
+
+# Local ODD work tracking (not for the public repo)
+odd/

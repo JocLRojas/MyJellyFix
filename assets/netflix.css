@@ -358,7 +358,12 @@ fieldset.verticalSection {
 /* ---- Login page ---- */
 
 #loginPage {
-  background: var(--nf-bg) !important;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 20%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 20%),
+    linear-gradient(to left, rgba(0, 0, 0, 0.75), transparent 20%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.75), transparent 20%),
+    url("https://cdn.jsdelivr.net/gh/JocLRojas/MyJellyFix@v0.3.0/assets/login-bg.jpg") center / cover no-repeat !important;
 }
 #loginPage .squareCard {
   width: 50% !important;
